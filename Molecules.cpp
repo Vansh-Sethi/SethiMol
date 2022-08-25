@@ -50,9 +50,9 @@ class AminoAcid {
 
 };
 
-class Protein {
-    vector<AminoAcid> residues;
-    Protein(vector<AminoAcid> givenResidues) {
-        residues = givenResidues;
-    }
-}
+// class Protein {
+//     vector<AminoAcid> residues;
+//     Protein(vector<AminoAcid> givenResidues) {
+//         residues = givenResidues;
+//     };
+// };
