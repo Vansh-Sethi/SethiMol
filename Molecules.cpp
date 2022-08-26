@@ -8,6 +8,7 @@ class Atom {
         string element;
         float position[3];
         string nomenclature;
+
     
     Atom(string elementChar, float posX, float posY, float posZ, string nomenclatureIdentifier = "Backbone") {
         element = elementChar;
@@ -19,13 +20,6 @@ class Atom {
          
 };
 
-struct AminoAcidBackbone {
-    Atom n_nitrogen;
-    Atom carbon;
-    Atom carbon_alpha;
-    Atom double_oxygen;
-    Atom c_nitrogen;
-};
 
 class AminoAcid {
     public:

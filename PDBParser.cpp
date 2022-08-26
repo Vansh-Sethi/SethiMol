@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include "Molecules.cpp"
+#include "SidechainSchemas.cpp"
 using namespace std;
 
 vector<string> split(string y) {
@@ -29,18 +30,52 @@ vector<string> split(string y) {
 };
 
 
+void PDBFileParser(string pdb) {
+    string line;
+    ifstream file ("PDBFiles/" + pdb);
+
+    vector<vector<string>> Protein_Information;
+
+    while (getline(file, line)) {
+        vector<string> line_info = split(line);
+        if (line_info[0] == "ATOM") {
+            Protein_Information.push_back(line_info);
+        }
+        if (line_info[0] == "MODEL" && line_info[1] == "2") {
+            file.close();
+        }
+    }
+
+    for (int i = 0; i < Protein_Information.size(); i++) {
+        for (int j = 0; j < Protein_Information[i].size(); j++) {
+            cout << Protein_Information[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+   
+
+    // Backbone Parser
+    int residue = 1;
+    ResidueBackbone currentResidue;
+    for (int i = 0; i < Protein_Information.size(); i++) {
+        string currentAtom = Protein_Information[i][2];
+        if (Protein_Information[i][2] == "N" && stoi(Protein_Information[i][5]) == residue) {
+            // Set N terminal Nitrogen
+        }
+        if (Protein_Information[i][2] == "N" && stoi(Protein_Information[i][5]) == residue+1) {
+            residue++;
+            // Set C terminal Nitrogen and create amino acid
+        } 
+        
+    }
+
+    
+}
+
 
 int main() {
-    string line;
-    ifstream file ("PDBFiles/1yyb.pdb");
-    getline(file, line);
-    file.close();
-
-
-    vector<string> stuff = split(line);
-    for (int i = 0; i < stuff.size(); i++) {
-        cout << stuff[i] << endl;
-    }
+    PDBFileParser("1yybFull.pdb");
 
 
 
