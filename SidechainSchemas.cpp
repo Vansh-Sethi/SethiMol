@@ -7,6 +7,7 @@ class ResidueBackbone {
         Atom CA;
         Atom O;
         Atom NC;
+   
     
    
 };

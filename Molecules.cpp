@@ -9,7 +9,7 @@ class Atom {
         float position[3];
         string nomenclature;
 
-    
+        
     Atom(string elementChar, float posX, float posY, float posZ, string nomenclatureIdentifier = "Backbone") {
         element = elementChar;
         position[0] = posX;
@@ -23,15 +23,15 @@ class Atom {
 
 class AminoAcid {
     public:
-        char aminoAcid;
+        string aminoAcid;
         string type;
-        vector<Atom> sideChain;
+        ResidueBackbone sideChain;
         float psi;
         float phi;
         vector<float> chi;
-        vector<Atom> backbone;
+        ResidueBackbone backbone;
 
-    AminoAcid(char aminoAcidChar, vector<Atom> givenBackbone, vector<Atom> givenSideChain) {
+    AminoAcid(string aminoAcidChar, ResidueBackbone givenBackbone, ResidueBackbone givenSideChain) {
         aminoAcid = aminoAcidChar;
         backbone = givenBackbone;
         sideChain = givenSideChain;
