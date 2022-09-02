@@ -3,12 +3,14 @@
 #include <vector>
 using namespace std;
 
+
 class Atom {
     public:
         string element;
         float position[3];
         string nomenclature;
 
+    Atom() {}
         
     Atom(string elementChar, float posX, float posY, float posZ, string nomenclatureIdentifier = "Backbone") {
         element = elementChar;
@@ -16,8 +18,17 @@ class Atom {
         position[1] = posY;
         position[2] = posZ;
         nomenclature = nomenclatureIdentifier;
-    };
-         
+    };    
+};
+
+struct ResidueBackbone {
+    Atom N()
+    Atom CA()
+    Atom C()
+    Atom O()
+    Atom NC()
+
+    
 };
 
 
@@ -44,9 +55,9 @@ class AminoAcid {
 
 };
 
-// class Protein {
-//     vector<AminoAcid> residues;
-//     Protein(vector<AminoAcid> givenResidues) {
-//         residues = givenResidues;
-//     };
-// };
+class Protein {
+    vector<AminoAcid> residues;
+    Protein(vector<AminoAcid> givenResidues) {
+        residues = givenResidues;
+    };
+};

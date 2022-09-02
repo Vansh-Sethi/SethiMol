@@ -2,7 +2,6 @@
 #include <fstream>
 #include <vector>
 #include "Molecules.cpp"
-#include "SidechainSchemas.cpp"
 using namespace std;
 
 vector<string> split(string y) {
