@@ -22,11 +22,11 @@ class Atom {
 };
 
 struct ResidueBackbone {
-    Atom N()
-    Atom CA()
-    Atom C()
-    Atom O()
-    Atom NC()
+    Atom N;
+    Atom CA;
+    Atom C;
+    Atom O;
+    Atom NC;
 
     
 };
