@@ -76,25 +76,28 @@ void PDBFileParser(string pdb) {
             currentResidue.NC = C_Termnal_Nitrogen;
             AminoAcid newResidue = AminoAcid(currentAminoAcid, currentResidue, currentResidue);
             residues.push_back(newResidue);
+
+            Atom N_Termnal_Nitrogen = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
+            currentResidue.N = N_Termnal_Nitrogen;
+            currentAminoAcid = Protein_Information[i][3];
+
         } 
-        // else {
-        //     try
-        //     {
-        //     Atom BackboneAtom = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
-        //      currentResidue[currentAtom] = BackboneAtom;
-                
-        //     }
-        //     catch(const std::exception& e)
-        //     {
-        //         int b;
-        //     }
+        else {
+            try {
+            Atom BackboneAtom = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
+             currentResidue[currentAtom] = BackboneAtom;   
+            }
+            catch(const std::exception& e)
+            {
+                cout << "ad";
+            }
             
-        // }
+        }
         
     }
 
     for (int i = 0; i < residues.size(); i++) {
-        cout << residues[i];
+        cout << residues[i].backbone.C.position[0] << endl;
     }
     
     
