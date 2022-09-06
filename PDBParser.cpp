@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
 #include "Molecules.cpp"
 using namespace std;
 
@@ -58,14 +59,14 @@ void PDBFileParser(string pdb) {
     vector<AminoAcid> residues;
 
     int residue = 1;
-    ResidueBackbone currentResidue;
+    map<string,Atom> currentResidue;
     string currentAminoAcid;
     for (int i = 0; i < Protein_Information.size(); i++) {
         string currentAtom = Protein_Information[i][2];
         if (Protein_Information[i][2] == "N" && stoi(Protein_Information[i][5]) == residue) {
             // Set N terminal Nitrogen
             Atom N_Termnal_Nitrogen = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
-            currentResidue.N = N_Termnal_Nitrogen;
+            currentResidue["N"] = N_Termnal_Nitrogen;
             currentAminoAcid = Protein_Information[i][3];
 
         }
@@ -73,12 +74,12 @@ void PDBFileParser(string pdb) {
             residue++;
             // Set C terminal Nitrogen and create amino acid
             Atom C_Termnal_Nitrogen = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
-            currentResidue.NC = C_Termnal_Nitrogen;
+            currentResidue["NC"] = C_Termnal_Nitrogen;
             AminoAcid newResidue = AminoAcid(currentAminoAcid, currentResidue, currentResidue);
             residues.push_back(newResidue);
 
             Atom N_Termnal_Nitrogen = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
-            currentResidue.N = N_Termnal_Nitrogen;
+            currentResidue["N"] = N_Termnal_Nitrogen;
             currentAminoAcid = Protein_Information[i][3];
 
         } 
@@ -97,7 +98,7 @@ void PDBFileParser(string pdb) {
     }
 
     for (int i = 0; i < residues.size(); i++) {
-        cout << residues[i].backbone.C.position[0] << endl;
+        cout << residues[i].backbone["C"].position[0] << endl;
     }
     
     

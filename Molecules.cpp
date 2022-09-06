@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <map>
 using namespace std;
 
 
@@ -21,28 +22,19 @@ class Atom {
     };    
 };
 
-struct ResidueBackbone {
-    Atom N;
-    Atom CA;
-    Atom C;
-    Atom O;
-    Atom NC;
-
-    
-};
 
 
 class AminoAcid {
     public:
         string aminoAcid;
         string type;
-        ResidueBackbone sideChain;
+        map<string, Atom> sideChain;
         float psi;
         float phi;
         vector<float> chi;
-        ResidueBackbone backbone;
+        map<string,Atom> backbone;
 
-    AminoAcid(string aminoAcidChar, ResidueBackbone givenBackbone, ResidueBackbone givenSideChain) {
+    AminoAcid(string aminoAcidChar, map<string, Atom> givenBackbone, map<string, Atom>  givenSideChain) {
         aminoAcid = aminoAcidChar;
         backbone = givenBackbone;
         sideChain = givenSideChain;
