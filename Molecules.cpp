@@ -11,7 +11,10 @@ class Atom {
         float position[3];
         string nomenclature;
 
-    Atom() {}
+    Atom() {
+        
+
+    }
         
     Atom(string elementChar, float posX, float posY, float posZ, string nomenclatureIdentifier = "Backbone") {
         element = elementChar;
@@ -20,6 +23,11 @@ class Atom {
         position[2] = posZ;
         nomenclature = nomenclatureIdentifier;
     };    
+
+    friend ostream &operator << (ostream &out, const Atom &c) {
+        out << c.element << " " << c.position[0] << " " << c.position[1] << " " << c.position[2];
+        return out;
+    };
 };
 
 
@@ -39,6 +47,7 @@ class AminoAcid {
         backbone = givenBackbone;
         sideChain = givenSideChain;
     };
+
 
     float TorsionAngle(float p1[3], float p2[3], float p3[3], float p4[3]) {
         return 0.01;

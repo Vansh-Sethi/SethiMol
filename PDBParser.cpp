@@ -5,6 +5,9 @@
 #include "Molecules.cpp"
 using namespace std;
 
+vector<string> BackBoneAtoms = {"N", "CA", "C", "O", "NC"};
+
+
 vector<string> split(string y) {
     vector<string> o;
     vector<string> output;
@@ -60,9 +63,14 @@ void PDBFileParser(string pdb) {
 
     int residue = 1;
     map<string,Atom> currentResidue;
+    map<string,Atom> sideChainAtoms;
+
     string currentAminoAcid;
     for (int i = 0; i < Protein_Information.size(); i++) {
         string currentAtom = Protein_Information[i][2];
+
+        
+
         if (Protein_Information[i][2] == "N" && stoi(Protein_Information[i][5]) == residue) {
             // Set N terminal Nitrogen
             Atom N_Termnal_Nitrogen = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
@@ -70,12 +78,12 @@ void PDBFileParser(string pdb) {
             currentAminoAcid = Protein_Information[i][3];
 
         }
-        if (Protein_Information[i][2] == "N" && stoi(Protein_Information[i][5]) == residue+1) {
+        else if (Protein_Information[i][2] == "N" && stoi(Protein_Information[i][5]) == residue+1) {
             residue++;
             // Set C terminal Nitrogen and create amino acid
             Atom C_Termnal_Nitrogen = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
             currentResidue["NC"] = C_Termnal_Nitrogen;
-            AminoAcid newResidue = AminoAcid(currentAminoAcid, currentResidue, currentResidue);
+            AminoAcid newResidue = AminoAcid(currentAminoAcid, currentResidue, sideChainAtoms);
             residues.push_back(newResidue);
 
             Atom N_Termnal_Nitrogen = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
@@ -83,17 +91,18 @@ void PDBFileParser(string pdb) {
             currentAminoAcid = Protein_Information[i][3];
 
         } 
-        else {
-            try {
+
+        else if (currentAtom == "CA" || currentAtom == "C" || currentAtom == "O") {
             Atom BackboneAtom = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
-             currentResidue[currentAtom] = BackboneAtom;   
-            }
-            catch(const std::exception& e)
-            {
-                cout << "ad";
-            }
-            
+            currentResidue[currentAtom] = BackboneAtom;
+
         }
+
+        else {
+            Atom SidechainAtom = Atom(Protein_Information[i][11], stof(Protein_Information[i][6]), stof(Protein_Information[i][7]), stof(Protein_Information[i][8]));
+            sideChainAtoms[currentAtom] = SidechainAtom;
+        }
+        
         
     }
 
