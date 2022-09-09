@@ -62,3 +62,11 @@ class Protein {
         residues = givenResidues;
     };
 };
+
+
+// Full Amino Acids
+
+class Histidine: public AminoAcid {
+    public:
+        
+}
